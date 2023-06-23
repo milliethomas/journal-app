@@ -9,6 +9,9 @@
 * { 
     margin: 0;
 }
+.main{
+    display:flex;
+}
 
 .sidebar {
     width:25%;
@@ -30,8 +33,13 @@
     float:right;
 }
 
+.sidebar-nav{
+    border-bottom: 1px solid gray;
+}
+
 .entry{
     border: 1px solid gray;
+    border-top: none;
     border-right: none;
     border-left: none;
     height: 100px;
@@ -49,10 +57,25 @@
     justify-content: space-between;
 }
 
-.title{
-    float:left;
-}
-
 .date{
     float:right;
+}
+
+.screen{
+    width: 100%;
+    font-family: Poppins-Light;
+}
+
+.note{
+    height:100%;
+}
+
+.note-header{
+    margin-left:10px;
+    font-size:35px;
+    color:rgb(138, 138, 138);
+}
+
+.subtitle{
+    font-size: 25px;
 }
