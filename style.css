@@ -1,0 +1,58 @@
+@font-face {
+    font-family: Poppins-Light;
+    src: url(./font/Poppins-Light.ttf);
+}
+@font-face {
+    font-family: Poppins-Thin;
+    src: url(./font/Poppins-Thin.ttf);
+}
+* { 
+    margin: 0;
+}
+
+.sidebar {
+    width:25%;
+    height: 100vh;
+    border: 1px solid gray;
+}
+
+.sidebar button{
+    background: none;
+    border:none;
+    margin:10px;
+}
+
+.sidebar button:hover{
+    background-color:rgb(240, 240, 240);
+}
+
+.right{
+    float:right;
+}
+
+.entry{
+    border: 1px solid gray;
+    border-right: none;
+    border-left: none;
+    height: 100px;
+    color:rgb(138, 138, 138);
+    font-family: Poppins-Light;
+    padding:3px 5px 3px 5px;
+}
+
+.entry:hover{
+    background-color:rgb(240, 240, 240);
+}
+
+.header{
+    display:flex;
+    justify-content: space-between;
+}
+
+.title{
+    float:left;
+}
+
+.date{
+    float:right;
+}
