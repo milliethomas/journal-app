@@ -25,14 +25,14 @@ function onLoad(){
 
 function adjustSidebarHeight(){
     const sidebar = document.querySelector('.sidebar');
-    const entries = document.querySelector('.entries');
+    const entries = document.getElementById('entries');
     const windowHeight = window.innerHeight;
     const sidebarNavHeight = document.querySelector('.sidebar-nav').offsetHeight;
     const entriesHeight = windowHeight - sidebarNavHeight;
     entries.style.height = entriesHeight + 'px';
 }
 
-//window.addEventListener('resize', adjustSidebarHeight);
+window.addEventListener('resize', adjustSidebarHeight);
 
 function addEntry(){
     const entryID = 'entry-' + (document.querySelectorAll('.entry').length +1);
@@ -51,5 +51,7 @@ function addEntry(){
 
     const entries = document.getElementById('entries');
 
-    entries.appendChild(entryDiv);
+    entries.insertBefore(entryDiv, entries.firstChild);
+    
+    adjustSidebarHeight();
 }
