@@ -1,27 +1,30 @@
+let currentEntryID = undefined;
+
 function onLoad(){
     const entryDiv = document.createElement('div');
     entryDiv.setAttribute('id', "entry-1");
     entryDiv.classList.add('entry');
     entryDiv.setAttribute('onclick', 'getEntry()');
 
-    let date = new Date();
-    let day = date.getDate();
-    let month = date.getMonth();
-    let year = date.getFullYear();
-
-    entryDiv.innerHTML = `
-        <div class="header">
-            <p class="title">Your first entry!</p>
-            <p class="date">${day}-${month}-${year}</p>
-        </div>
-        <p>Welcome to the journal app! Here we ca...</p>`;
-
-    const entries = document.getElementById('entries');
-
-    entries.appendChild(entryDiv);
-
+    addEntry();
     adjustSidebarHeight();
+
+    // event to change title name for entries
+    document.getElementById('title-input').addEventListener("keyup", ({key})=>{
+        if(currentEntryID === undefined) return;
+        let noteTitle = document.getElementById('title-input');
+        const entry = entriesArr.find(entry => currentEntryID === entry.id);
+        if(key === "Enter"){
+            if(noteTitle.value != entry.title){
+                noteTitle.blur();
+                entry.title = noteTitle.value;
+                let sidebarEntryTitle = document.querySelector(`#${currentEntryID} .title`);
+                sidebarEntryTitle.textContent = noteTitle.value;
+            }
+        }
+    });
 }
+
 
 function adjustSidebarHeight(){
     const sidebar = document.querySelector('.sidebar');
@@ -34,24 +37,67 @@ function adjustSidebarHeight(){
 
 window.addEventListener('resize', adjustSidebarHeight);
 
+entriesArr = [];
+
 function addEntry(){
-    const entryID = 'entry-' + (document.querySelectorAll('.entry').length +1);
+    let entriesCount = document.querySelectorAll('.entry').length
+    const entryID = 'entry-' + entriesCount;
     
     const entryDiv = document.createElement('div');
     entryDiv.setAttribute('id', entryID);
     entryDiv.classList.add('entry');
-    entryDiv.setAttribute('onclick', 'getEntry()');
+    
+    entryDiv.addEventListener('click', function() {
+        getEntry(this);
+    });
+
+    let date = new Date();
+    let day = date.getDate();
+    let month = date.getMonth();
+    let year = date.getFullYear();
+
+    let fulldate = `${day}-${month}-${year}`
+    
+    let title = "";
+    let p = "";
+
+    if(entriesCount===0){
+        title = "Your first entry!";
+        p = "<p>Welcome to the journal app! Here we ca...</p>";
+    }   
 
     entryDiv.innerHTML = `
         <div class="header">
-            <p class="title">New Entry</p>
-            <p class="date">Date</p>
+            <p class="title">${title}</p>
+            <p class="date">${fulldate}</p>
         </div>
-        <p>Preview</p>`;
+        ${p}`;
+
+    // creates entry object
+    let entry = {
+        id: entryID,
+        title: title,
+        date: fulldate,
+        content: p,
+    } 
+    // adds to array
+    entriesArr.push(entry);
 
     const entries = document.getElementById('entries');
-
     entries.insertBefore(entryDiv, entries.firstChild);
     
     adjustSidebarHeight();
 }
+
+function getEntry(event){
+    currentEntryID = event.id;
+    
+    const entry = entriesArr.find(entry => currentEntryID === entry.id);
+    let noteTitle = document.getElementById('title-input');
+    noteTitle.value = entry.title;
+    let entryDate = entry.date;
+    let screen = document.getElementById('subtitle');
+    screen.textContent = entry.date;
+
+}
+

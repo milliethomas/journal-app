@@ -90,6 +90,8 @@
     font-family: Poppins-Light;
 }
 
+/* notes */
+
 .note{
     height:100%;
 }
@@ -99,6 +101,14 @@
     font-size:35px;
     color:rgb(138, 138, 138);
 }
+
+.note-header input{
+    font-size:35px;
+    padding: 0px;
+    border:none;
+    color:rgb(138, 138, 138);
+}
+
 
 .subtitle{
     font-size: 25px;
