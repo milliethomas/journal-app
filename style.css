@@ -6,6 +6,16 @@
     font-family: Poppins-Thin;
     src: url(./font/Poppins-Thin.ttf);
 }
+/* colors */
+
+:root{
+    --lighter-gray:rgb(200,200,200);
+    --light-gray:rgb(150,150,150);
+    --gray: rgb(128,128,128);
+    --dark-gray: rgb(100,100,100);
+    
+}
+
 * { 
     margin: 0;
 }
@@ -14,10 +24,20 @@
 }
 
 .sidebar {
-    width:25%;
-    height: 100vh;
-    border: 1px solid gray;
+    width: 3/8;
+    height: 100%;
+    border: 1px solid var(--light-gray);
 }
+
+::-webkit-scrollbar{
+    width:4px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:var(--light-gray);
+    border-radius: 10px;
+}
+
 
 .sidebar button{
     background: none;
@@ -34,11 +54,11 @@
 }
 
 .sidebar-nav{
-    border-bottom: 1px solid gray;
+    border-bottom: 1px solid var(--gray);
 }
 
 .entry{
-    border: 1px solid gray;
+    border: 1px solid var(--gray);
     border-top: none;
     border-right: none;
     border-left: none;
@@ -50,6 +70,10 @@
 
 .entry:hover{
     background-color:rgb(240, 240, 240);
+}
+
+.entries{
+    overflow-y: auto;
 }
 
 .header{
