@@ -1,0 +1,23 @@
+{
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "name": "journal-app",
+  "version": "1.0.0",
+  "description": "Simple journaling app",
+  "main": "app.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/racsoj/journal-app.git"
+  },
+  "author": "racsoj",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/racsoj/journal-app/issues"
+  },
+  "homepage": "https://github.com/racsoj/journal-app#readme"
+}

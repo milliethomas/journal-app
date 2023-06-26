@@ -1,103 +1,103 @@
 let currentEntryID = undefined;
 
-function onLoad(){
-    const entryDiv = document.createElement('div');
-    entryDiv.setAttribute('id', "entry-1");
-    entryDiv.classList.add('entry');
-    entryDiv.setAttribute('onclick', 'getEntry()');
+function onLoad() {
+	const entryDiv = document.createElement('div');
+	entryDiv.setAttribute('id', "entry-1");
+	entryDiv.classList.add('entry');
+	entryDiv.setAttribute('onclick', 'getEntry()');
 
-    addEntry();
-    adjustSidebarHeight();
+	addEntry();
+	adjustSidebarHeight();
 
-    // event to change title name for entries
-    document.getElementById('title-input').addEventListener("keyup", ({key})=>{
-        if(currentEntryID === undefined) return;
-        let noteTitle = document.getElementById('title-input');
-        const entry = entriesArr.find(entry => currentEntryID === entry.id);
-        if(key === "Enter"){
-            if(noteTitle.value != entry.title){
-                noteTitle.blur();
-                entry.title = noteTitle.value;
-                let sidebarEntryTitle = document.querySelector(`#${currentEntryID} .title`);
-                sidebarEntryTitle.textContent = noteTitle.value;
-            }
-        }
-    });
+	// event to change title name for entries
+	document.getElementById('title-input').addEventListener("keyup", ({ key }) => {
+		if (currentEntryID === undefined) return;
+		let noteTitle = document.getElementById('title-input');
+		const entry = entriesArr.find(entry => currentEntryID === entry.id);
+		if (key === "Enter") {
+			if (noteTitle.value != entry.title) {
+				noteTitle.blur();
+				entry.title = noteTitle.value;
+				let sidebarEntryTitle = document.querySelector(`#${currentEntryID} .title`);
+				sidebarEntryTitle.textContent = noteTitle.value;
+			}
+		}
+	});
 }
 
-
-function adjustSidebarHeight(){
-    const sidebar = document.querySelector('.sidebar');
-    const entries = document.getElementById('entries');
-    const windowHeight = window.innerHeight;
-    const sidebarNavHeight = document.querySelector('.sidebar-nav').offsetHeight;
-    const entriesHeight = windowHeight - sidebarNavHeight;
-    entries.style.height = entriesHeight + 'px';
+function adjustSidebarHeight() {
+	const entries = document.getElementById('entries');
+	const windowHeight = window.innerHeight;
+	const sidebarNavHeight = document.querySelector('.sidebar-nav').offsetHeight;
+	const entriesHeight = windowHeight - sidebarNavHeight;
+	entries.style.height = entriesHeight + 'px';
 }
 
 window.addEventListener('resize', adjustSidebarHeight);
 
 entriesArr = [];
 
-function addEntry(){
-    let entriesCount = document.querySelectorAll('.entry').length
-    const entryID = 'entry-' + entriesCount;
-    
-    const entryDiv = document.createElement('div');
-    entryDiv.setAttribute('id', entryID);
-    entryDiv.classList.add('entry');
-    
-    entryDiv.addEventListener('click', function() {
-        getEntry(this);
-    });
+function addEntry() {
+	let entriesCount = document.querySelectorAll('.entry').length
+	const entryID = 'entry-' + entriesCount;
 
-    let date = new Date();
-    let day = date.getDate();
-    let month = date.getMonth();
-    let year = date.getFullYear();
+	const entryDiv = document.createElement('div');
+	entryDiv.setAttribute('id', entryID);
+	entryDiv.classList.add('entry');
 
-    let fulldate = `${day}-${month}-${year}`
-    
-    let title = "";
-    let p = "";
+	entryDiv.addEventListener('click', function () {
+		getEntry(this);
+	});
 
-    if(entriesCount===0){
-        title = "Your first entry!";
-        p = "<p>Welcome to the journal app! Here we ca...</p>";
-    }   
+	let date = new Date();
+	let day = date.getDate();
+	let month = date.getMonth();
+	let year = date.getFullYear();
 
-    entryDiv.innerHTML = `
+	let fulldate = `${day}-${month}-${year}`
+
+	let p = "placeholder";
+
+	if (entriesCount === 1) {
+		title = "Your first entry!";
+		p = `<p>example</p>`;
+	}
+
+	entryDiv.innerHTML = `
         <div class="header">
-            <p class="title">${title}</p>
+            <p class="title">Untitled</p>
             <p class="date">${fulldate}</p>
         </div>
-        ${p}`;
+		<div class="content-preview">
+        	${p}
+		</div>	
+		`;
 
-    // creates entry object
-    let entry = {
-        id: entryID,
-        title: title,
-        date: fulldate,
-        content: p,
-    } 
-    // adds to array
-    entriesArr.push(entry);
+	// creates entry object
+	let entry = {
+		id: entryID,
+		title: "Untitled",
+		date: fulldate,
+		content: p,
+	}
+	// adds to array
+	entriesArr.push(entry);
 
-    const entries = document.getElementById('entries');
-    entries.insertBefore(entryDiv, entries.firstChild);
-    
-    adjustSidebarHeight();
+	const entries = document.getElementById('entries');
+	entries.insertBefore(entryDiv, entries.firstChild);
+
+	adjustSidebarHeight();
 }
 
-function getEntry(event){
-    currentEntryID = event.id;
-    
-    const entry = entriesArr.find(entry => currentEntryID === entry.id);
-    let noteTitle = document.getElementById('title-input');
-    noteTitle.value = entry.title;
-    let entryDate = entry.date;
-    let screen = document.getElementById('subtitle');
-    screen.textContent = entry.date;
+function getEntry(event) {
+	currentEntryID = event.id;
+
+	const entry = entriesArr.find(entry => currentEntryID === entry.id);
+	let noteTitle = document.getElementById('title-input');
+	noteTitle.value = entry.title;
+	let entryDate = entry.date;
+	let screen = document.getElementById('subtitle');
+	screen.textContent = entry.date;
 
 }
 
