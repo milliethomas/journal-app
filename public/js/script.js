@@ -57,6 +57,7 @@ function addEntry() {
 	let fulldate = `${day}-${month}-${year}`
 
 	let p = "placeholder";
+	let title = "Untitled"
 
 	if (entriesCount === 1) {
 		title = "Your first entry!";
@@ -65,7 +66,7 @@ function addEntry() {
 
 	entryDiv.innerHTML = `
         <div class="header">
-            <p class="title">Untitled</p>
+            <p class="title">${title}</p>
             <p class="date">${fulldate}</p>
         </div>
 		<div class="content-preview">
@@ -76,9 +77,10 @@ function addEntry() {
 	// creates entry object
 	let entry = {
 		id: entryID,
-		title: "Untitled",
+		title: title,
 		date: fulldate,
 		content: p,
+		default: true,
 	}
 	// adds to array
 	entriesArr.push(entry);

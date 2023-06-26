@@ -1,9 +1,12 @@
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = 3500;
 
-app.get('/', (req, res) => {
-	res.send('Hello World!');
+app.use(express.static(__dirname + '/public'));
+
+app.get('/:page', (req, res) => {
+	const page = req.params.page;
+	res.sendFile(__dirname + `/views/${page}.html`);
 });
 
 app.listen(port, () => {

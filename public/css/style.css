@@ -1,11 +1,11 @@
 @font-face {
 	font-family: Poppins-Light;
-	src: url(./font/Poppins-Light.ttf);
+	src: url(/font/Poppins-Light.ttf);
 }
 
 @font-face {
 	font-family: Poppins-Thin;
-	src: url(./font/Poppins-Thin.ttf);
+	src: url(/font/Poppins-Thin.ttf);
 }
 
 /* colors */
@@ -134,6 +134,10 @@
 	color: rgb(138, 138, 138);
 	width: 100%;
 	outline: none;
+}
+
+.note-header input::placeholder {
+	opacity: 0.5;
 }
 
 .note textarea {
