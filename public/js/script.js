@@ -1,4 +1,45 @@
 let currentEntryID = undefined;
+let currentEntry;
+
+class Note{
+	
+	id = "";
+	title = "";
+	date = "";
+	content = "";
+
+	constructor(id, title, date, content){
+		this.id = id;
+		this.title = title;
+		this.date = date;
+		this.content = content;
+	}
+
+	setTitle(string){
+		title = string;
+	}
+
+	setContent(string){
+		content = string;
+	}
+
+	getDate(){
+		return this.date;
+	}
+
+	getContent(){
+		return this.content;
+	}
+
+	getID(){
+		return this.id;
+	}
+
+	getTitle(){
+		return this.title;
+	}
+
+}
 
 function onLoad() {
 	const entryDiv = document.createElement('div');
@@ -8,21 +49,34 @@ function onLoad() {
 
 	addEntry();
 	adjustSidebarHeight();
-
+	
+	// adding events
 	// event to change title name for entries
 	document.getElementById('title-input').addEventListener("keyup", ({ key }) => {
-		if (currentEntryID === undefined) return;
+		if (currentEntry === undefined) return;
 		let noteTitle = document.getElementById('title-input');
-		const entry = entriesArr.find(entry => currentEntryID === entry.id);
 		if (key === "Enter") {
-			if (noteTitle.value != entry.title) {
+			if (noteTitle.value != currentEntry.title) {
 				noteTitle.blur();
-				entry.title = noteTitle.value;
+				currentEntry.title = noteTitle.value;
 				let sidebarEntryTitle = document.querySelector(`#${currentEntryID} .title`);
-				sidebarEntryTitle.textContent = noteTitle.value;
+				sidebarEntryTitle.textContent = noteTitle.value; // changes sidebar
 			}
 		}
 	});
+
+
+	document.getElementById('content-edit').addEventListener('keyup', handleKeyPress);
+}
+
+let timeoutId;
+function handleKeyPress(){
+	clearTimeout(timeoutId); // Clear the previous timeout (if any)
+	console.log("Key pressed!");
+	timeoutId = setTimeout(() => {
+		
+		console.log("1.5 seconds of inactivity.");
+	}, 1500);
 }
 
 function adjustSidebarHeight() {
@@ -74,16 +128,8 @@ function addEntry() {
 		</div>	
 		`;
 
-	// creates entry object
-	let entry = {
-		id: entryID,
-		title: title,
-		date: fulldate,
-		content: p,
-		default: true,
-	}
-	// adds to array
-	entriesArr.push(entry);
+	let xyz = new Note(entryID, title, fulldate, p);
+	entriesArr.push(xyz);
 
 	const entries = document.getElementById('entries');
 	entries.insertBefore(entryDiv, entries.firstChild);
@@ -92,14 +138,24 @@ function addEntry() {
 }
 
 function getEntry(event) {
-	currentEntryID = event.id;
+	entriesArr.forEach(element => {
+		if(element.id === event.id){
+			currentEntry = element;
+			currentEntryID = currentEntry.id;
+			return;
+		}
+	});
 
-	const entry = entriesArr.find(entry => currentEntryID === entry.id);
+	if (currentEntry === undefined){
+		console.log('note is null');		
+		return;
+	}
+	
 	let noteTitle = document.getElementById('title-input');
-	noteTitle.value = entry.title;
-	let entryDate = entry.date;
+	noteTitle.value = currentEntry.title;
+	let entryDate = currentEntry.date; // not used
 	let screen = document.getElementById('subtitle');
-	screen.textContent = entry.date;
+	screen.textContent = currentEntry.date;
 
 }
 
